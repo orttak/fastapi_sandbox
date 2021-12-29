@@ -1,0 +1,7 @@
+deploy heroku with subfolder
+add app git folder to remote
+ > heroku git:remote -a orttak-fastapi-crud
+push the target folder which has Procfile and app python
+ > git subtree push --prefix src/ heroku master
+
+restart app > heroku ps:restart
