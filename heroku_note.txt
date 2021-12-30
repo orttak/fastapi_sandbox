@@ -1,7 +1,13 @@
+I use docker compose in my local machine and my app directory under main folder so it creates problems when I deploy app to heroku.
+So I have to upload subfolder which name is "src" to heroku.
 deploy heroku with subfolder
 add app git folder to remote
+ > heroku create app orttak-fastapi-crud
  > heroku git:remote -a orttak-fastapi-crud
 push the target folder which has Procfile and app python
  > git subtree push --prefix src/ heroku master
+
+ After deploy the app we should define new DB for our app. For this purpose we istall heroku postgresql instance and 
+ initlaize with our app. For this settings, under app setting, go got "Config Vars" and define your variable which should be same as the ".env" file
 
 restart app > heroku ps:restart
