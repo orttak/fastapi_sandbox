@@ -13,7 +13,7 @@ from app.config import settings
 # heroku apps:destroy orttak-dd
 # after set up alembci we don't need below command line arguments
 #because alembic do it automatically
-models.Base.metadata.create_all(bind=engine)
+#models.Base.metadata.create_all(bind=engine)
 
 app=FastAPI()
 origin=['*']

@@ -1,0 +1,15 @@
+
+
+With "alembic init alembic", define Alembic folder structure. Then You should define DB credentials under "alembic/env.py"
+from app.models import Base
+from app.config import settings
+config = context.config
+#same as database.py file
+SQL_DATABASE_URL = f'postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{settings.database_port}/{settings.database_name}'
+config.set_main_option("sqlalchemy.url", SQL_DATABASE_URL)
+fileConfig(config.config_file_name)
+target_metadata = Base.metadata
+
+
+Then "alembic revision --autogenerate -m "Initial migration"", create initial migration.
+Then "alembic upgrade head", upgrade database to latest version.

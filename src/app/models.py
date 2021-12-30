@@ -25,6 +25,7 @@ class User(Base):
     created_at = Column(TIMESTAMP(timezone=True),
                         nullable=False, server_default=text('now()'))
     phone_number=Column(String,nullable=True)
+    is_active=Column(Boolean,nullable=False,default=True)
 class Post(Base):
     __tablename__ = "posts"
 
