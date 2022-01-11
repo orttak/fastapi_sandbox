@@ -7,7 +7,6 @@ from app import schemas,database, models
 from app.config import settings
 
 #tokenUrl come from under router/auth.py login function
-# 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 # to get a string like this run:
 # openssl rand -hex 32

@@ -10,4 +10,7 @@ push the target folder which has Procfile and app python
  After deploy the app we should define new DB for our app. For this purpose we istall heroku postgresql instance and 
  initlaize with our app. For this settings, under app setting, go got "Config Vars" and define your variable which should be same as the ".env" file
 
-restart app > heroku ps:restart
+Last step in heroku, you should apply your Alembic configuration to your app. For this purpose, go to "Migrate" and apply your migration.
+In CMD "heroku run "alembic upgrade head" " and "heroku ps:restart" 
+
+note:restart app > heroku ps:restart

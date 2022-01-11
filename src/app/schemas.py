@@ -37,6 +37,7 @@ class PostResponse(PostBase):
 
     class Config:
         orm_mode = True
+#basemodel degil de PostBase alirsak calismadi
 class PostResponseVote(BaseModel):
     Post:PostResponse
     votes:int

@@ -1,0 +1,35 @@
+Create user with root privileges
+ > addUser user1
+ activate user
+    > su - user1
+give root privileges to user1
+    > usermod -aG sudo user1 
+
+Creating .env file and initializing with system 
+ > set -o allexport; source /home/user1; set +o allexport
+But upper command is not perminent, so we need to add it to .profile
+ > echo "set -o allexport; source /home/user1; set +o allexport" >> /home/user1/.profile
+
+
+
+"cd /etc/systemd/system" and ls show all services
+Creating API service for ubuntu server
+from https://github.com/Sanjeev-Thiyagarajan/fastapi-course/blob/main/gunicorn.service
+"""
+[Unit]
+Description=demo fastapi application
+#start if network is available
+After=network.target
+
+[Service]
+User=sanjeev
+Group=sanjeev
+WorkingDirectory=/home/sanjeev/app/src/
+#python env path
+Environment="PATH=/home/sanjeev/app/venv/bin"
+EnvironmentFile=/home/sanjeev/.env
+ExecStart=/home/sanjeev/app/venv/bin/gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app --bind 0.0.0.0:8000
+
+[Install]
+WantedBy=multi-user.target
+"""

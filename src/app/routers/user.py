@@ -10,6 +10,7 @@ from app import models,utils,schemas
 from app.database import  engine ,get_db
 from sqlalchemy.orm import Session
 from app.config import settings
+
 router = APIRouter(
     prefix="/users",
     tags=["users"]
