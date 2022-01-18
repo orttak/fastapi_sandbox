@@ -8,6 +8,7 @@ jobs:
     steps: 
       - name: pulling git repo
         uses: actions/checkout@v2  # https://github.com/marketplace?type= find here
+      - name: installing python
       - uses: actions/setup-python@v2
         with:
           python-version: '3.8' # Version range or exact version of a Python version to use, using SemVer's version range syntax
