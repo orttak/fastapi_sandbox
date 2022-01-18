@@ -7,7 +7,7 @@ give root privileges to user1
 
 Creating .env file and initializing with system 
  > set -o allexport; source /home/user1; set +o allexport
-But upper command is not perminent, so we need to add it to .profile
+But previous command is not perminent, so we need to add it to .profile
  > echo "set -o allexport; source /home/user1; set +o allexport" >> /home/user1/.profile
 
 
