@@ -8,4 +8,4 @@ jobs:
       - name: Build the stack
         run: docker-compose up -d
       - name: Test
-        run: docker exec -i freecode_web_1  pytest
+        run: docker exec -i web  pytest

@@ -3,8 +3,7 @@ name: Build and Deploy Code
 on: [push, pull_request]
 
 jobs:
-  env: 
-    DATABASE_HOSTNAME: localhost
+  env:
     DATABASE_HOSTNAME: db
     DATABASE_PORT: 5432
     DATABASE_PASSWORD: hello_fastapi
