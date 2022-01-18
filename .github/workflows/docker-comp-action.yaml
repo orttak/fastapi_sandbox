@@ -1,11 +1,26 @@
-name: Docker Compose Actions Workflow
+name: Docker Compose Actions Workflow #https://github.com/peter-evans/docker-compose-actions-workflow
 on: push
 jobs:
+  build:
+    environment:
+      name: testing
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Build the stack
         run: docker-compose up -d
+      - name: create env file
+      run: |
+        touch .env
+        echo VARIABLE=${{ secrets.VARIABLE }} >> .env
+        echo DATABASE_HOSTNAME= ${{secrets.DATABASE_HOSTNAME}} >> .env
+        echo DATABASE_PORT= ${{secrets.DATABASE_PORT}} >> .env
+        echo DATABASE_PASSWORD= ${{secrets.DATABASE_PASSWORD}} >> .env
+        echo DATABASE_NAME= ${{secrets.DATABASE_NAME}} >> .env
+        echo DATABASE_USERNAME= ${{secrets.DATABASE_USERNAME}} >> .env
+        echo SECRET_KEY= ${{secrets.SECRET_KEY}} >> .env
+        echo ALGORITHM= ${{secrets.ALGORITHM}} >> .env
+        echo ACCESS_TOKEN_EXPIRE_MINUTES= ${{secrets.ACCESS_TOKEN_EXPIRE_MINUTES}} >> .env
       - name: Test
         run: docker exec -i web  pytest
