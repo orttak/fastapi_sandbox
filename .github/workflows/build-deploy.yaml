@@ -3,11 +3,22 @@ name: Build and Deploy Code
 on: [push, pull_request]
 
 jobs:
+  env: 
+    DATABASE_HOSTNAME: localhost
+    DATABASE_HOSTNAME: db
+    DATABASE_PORT: 5432
+    DATABASE_PASSWORD: hello_fastapi
+    DATABASE_NAME: hello_fastapi_dev
+    DATABASE_USERNAME: hello_fastapi
+    DATABASE_FULL_NAME: postgresql://hello_fastapi:hello_fastapi@db/hello_fastapi_dev
+    SECRET_KEY: 09d25e094faa6ca2556c818145b7a9563b93f7958f6f0f4caa6cf63b88e8d3e7
+    ALGORITHM: HS256
+    ACCESS_TOKEN_EXPIRE_MINUTES: 30
   build:
     runs-on: ubuntu-latest
     steps:
       - name: pulling git repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2  # from https://github.com/marketplace
       - name: Install python version 3.9
         uses: actions/setup-python@v2
         with:
