@@ -25,7 +25,9 @@ def test_unauthorize_user_get_one_post(client,test_posts):
     assert response.status_code == 401
 
 
-@pytest.mark.parametrize("title,content,published", [
+@pytest.mark.parametrize(
+    #define variables for pytest 
+    "title,content,published", [
     ("test_post v1", "test_content v1", True),
     ("test_post v2 ", "test_content v2", False),
     ("test_post v3", "test_content v3", True)])

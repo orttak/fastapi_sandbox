@@ -10,6 +10,7 @@ from app import models
 from app.routers import user,post,auth,vote
 from app.database import  engine ,get_db
 from app.config import settings
+
 # heroku apps:destroy orttak-dd
 # after set up alembci we don't need below command line arguments
 #because alembic do it automatically
@@ -24,6 +25,34 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+"""
+# CORS middleware setting for different domains
+from fastapi import Request, HTTPException
+
+class AccessMiddleware:
+    def __init__(self, app):
+        self.app = app
+
+    async def __call__(self, request: Request,):
+        allowed_domains = {
+            "a.com": ["GET"],
+            "b.com": ["GET", "POST", "PUT", "DELETE"]
+        }
+        domain = request.headers.get("host")
+        if domain not in allowed_domains:
+            raise HTTPException(status_code=403, detail="This domain is not allowed to make requests.")
+        allowed_methods = allowed_domains[domain]
+        if request.method not in allowed_methods:
+            raise HTTPException(status_code=403, detail="This domain is not allowed to make this request.")
+        response = await self.app(request)
+        return response
+
+from fastapi import FastAPI
+from mymodule import AccessMiddleware
+
+app = FastAPI()
+app.add_middleware(AccessMiddleware)
+"""
 
 @app.get("/")
 def root():

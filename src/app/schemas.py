@@ -31,10 +31,10 @@ class PostResponse(PostBase):
     #use inheritance to add the id field
     id:int
     created_at: datetime
-    # convert sqlchemy object to pydantic object
+    
     owner_id: int
     owner: UserOut
-
+    # convert sqlchemy object to pydantic object
     class Config:
         orm_mode = True
 #basemodel degil de PostBase alirsak calismadi

@@ -11,22 +11,28 @@ from app.database import Base
 from app import models
 from app.oauth2 import create_access_token
 '''
-Define pytest fixture in this file
-'''
+Define pytest fixture in this file.
+All pytest modules can reach below functions without having to import them.
 
+You can create different confest.py files in different places in your project.
+like:
+src/tests/blog/conftest.py
+src/tests/api/conftest.py
+'''
+# at the end of the URL we define our test database
 SQL_DATABASE_URL = f'postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{settings.database_port}/{settings.database_name}_test'
-#SQL_DATABASE_URL=settings.database_full_name
-print(SQL_DATABASE_URL)
+print(SQL_DATABASE_URL) # postgresql://hello_fastapi:hello_fastapi@db:5432/hello_fastapi_dev_test
 engine = create_engine(SQL_DATABASE_URL)
 TestingSessionLocal=sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 @pytest.fixture(scope="function")
 def session():
+    #before running test session, we drop all  tables and create new tables
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
     db=TestingSessionLocal()
     try:
-        yield db
+        yield db    
     finally:
         db.close()
 
