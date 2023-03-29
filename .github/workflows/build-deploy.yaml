@@ -46,5 +46,4 @@ jobs:
       - name: test with pytest
         run: |
           pip install pytest
-          cd ./src
-          pytest ./src/tests -v
+          pytest -v
