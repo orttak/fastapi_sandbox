@@ -45,7 +45,6 @@ jobs:
         run: pip install -r src/requirements.txt
       - name: test with pytest
         run: |
-        echo(pwd)
         touch .env
         echo VARIABLE=${{ secrets.VARIABLE }} >> .env
         echo DATABASE_HOSTNAME= ${{secrets.DATABASE_HOSTNAME}} >> .env
