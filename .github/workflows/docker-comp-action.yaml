@@ -9,7 +9,7 @@ jobs:
         run: docker-compose up -d
       - name: create env file
         run: |
-          touch ./src/app/./src/app/.env
+          touch ./src/app/.env
           echo database_hostname="db" >> ./src/app/.env
           echo  database_port=5432  >> ./src/app/.env
           echo  database_password="hello_fastapi"   >> ./src/app/.env
