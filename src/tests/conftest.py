@@ -22,7 +22,8 @@ src/tests/api/conftest.py
 # at the end of the URL we define our test database
 SQL_DATABASE_URL = f'postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{settings.database_port}/{settings.database_name}_test'
 print(SQL_DATABASE_URL) # postgresql://hello_fastapi:hello_fastapi@db:5432/hello_fastapi_dev_test
-engine = create_engine(SQL_DATABASE_URL)
+# engine = create_engine(SQL_DATABASE_URL)
+engine = create_engine('postgresql://hello_fastapi:hello_fastapi@locahost:5432/hello_fastapi_dev_test')
 TestingSessionLocal=sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 @pytest.fixture(scope="function")
