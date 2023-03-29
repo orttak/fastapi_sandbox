@@ -12,6 +12,7 @@ jobs:
       DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
       DATABASE_NAME: ${{secrets.DATABASE_NAME}}
       DATABASE_USERNAME: ${{secrets.DATABASE_USERNAME}}
+      DATABASE_FULL_NAME: postgresql:// ${{secrets.DATABASE_USERNAME}}:${{secrets.DATABASE_PASSWORD}}@$localhost:5432/${{secrets.DATABASE_NAME}}_test
       SECRET_KEY: ${{secrets.SECRET_KEY}}
       ALGORITHM: ${{secrets.ALGORITHM}}
       ACCESS_TOKEN_EXPIRE_MINUTES: ${{secrets.ACCESS_TOKEN_EXPIRE_MINUTES}}
