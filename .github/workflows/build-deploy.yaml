@@ -42,8 +42,8 @@ jobs:
       - name: update pip
         run: python -m pip install --upgrade pip
       - name: install all dependencies
-        run: pip install -r src/requirements.txt
+        run: pip install -r /usr/src/requirements.txt
       - name: test with pytest
         run: |
           pip install pytest
-          pytest src/tests
+          pytest /usr/src/tests
