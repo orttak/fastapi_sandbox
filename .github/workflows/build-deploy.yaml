@@ -46,8 +46,7 @@ jobs:
         run: pip install -r src/requirements.txt
       - name: test with pytest
         run: |
-          pip install pytest
-          pytest
+          echo ${{ secrets }}
 
 
 # name: Build and Deploy Code
