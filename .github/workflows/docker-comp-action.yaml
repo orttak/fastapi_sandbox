@@ -1,22 +1,23 @@
-# name: Docker Compose Actions Workflow #https://github.com/peter-evans/docker-compose-actions-workflow
-# on: push
-# jobs:
-#   docker-compose-build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#       - name: Build the stack
-#         run: docker-compose up -d
-#       - name: create env file
-#         run: |
-#           touch .env
-#           echo DATABASE_HOSTNAME= db >> .env
-#           echo DATABASE_PORT= ${{secrets.DATABASE_PORT}} >> .env
-#           echo DATABASE_PASSWORD= ${{secrets.DATABASE_PASSWORD}} >> .env
-#           echo DATABASE_NAME= ${{secrets.DATABASE_NAME}}_test >> .env
-#           echo DATABASE_USERNAME= ${{secrets.DATABASE_USERNAME}} >> .env
-#           echo SECRET_KEY= ${{secrets.SECRET_KEY}} >> .env
-#           echo ALGORITHM= ${{secrets.ALGORITHM}} >> .env
-#           echo ACCESS_TOKEN_EXPIRE_MINUTES= ${{secrets.ACCESS_TOKEN_EXPIRE_MINUTES}} >> .env
-#       - name: Test
-#         run: docker exec -i web  pytest /usr/src/pytest
+name: Docker Compose Actions Workflow #https://github.com/peter-evans/docker-compose-actions-workflow
+on: push
+jobs:
+  docker-compose-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build the stack
+        run: docker-compose up -d
+      - name: create env file
+        run: |
+          touch ./src/app/./src/app/.env
+          echo database_hostname="db" >> ./src/app/.env
+          echo  database_port=5432  >> ./src/app/.env
+          echo  database_password="hello_fastapi"   >> ./src/app/.env
+          echo  database_name="hello_fastapi_dev  >> ./src/app/.env
+          echo  database_username="hello_fastapi  >> ./src/app/.env
+          echo  secret_key = "09d25e094faa6ca2556c818145b7a9563b93f7958f6f0f4caa6cf63b88e8d3e7  >> ./src/app/.env
+          echo  algorithm="HS256  >> ./src/app/.env
+          echo  database_full_name='postgresql://hello_fastapi:hello_fastapi@db/hello_fastapi_dev  >> ./src/app/.env
+          echo  access_token_expire_minutes=30 >> ./src/app/.env
+      - name: Test
+        run: docker exec -i web  pytest -v
