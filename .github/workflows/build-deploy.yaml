@@ -6,16 +6,15 @@ jobs:
   build:
     environment:
       name: testing
-    # env:
-    #   DATABASE_HOSTNAME: localhost
-    #   DATABASE_PORT: 5432
-    #   DATABASE_PASSWORD: hello_fastapi
-    #   DATABASE_NAME: hello_fastapi_dev
-    #   DATABASE_USERNAME: hello_fastapi
-    #   SECRET_KEY: 09d25e094faa6ca2556c818145b7a9563b93f7958f6f0f4caa6cf63b88e8d3e7
-    #   ALGORITHM: HS256
-    #   ACCESS_TOKEN_EXPIRE_MINUTES: 30
-
+    env:
+      DATABASE_HOSTNAME: ${{secrets.DATABASE_HOSTNAME}}
+      DATABASE_PORT: ${{secrets.DATABASE_PORT}}
+      DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
+      DATABASE_NAME: ${{secrets.DATABASE_NAME}}
+      DATABASE_USERNAME: ${{secrets.DATABASE_USERNAME}}
+      SECRET_KEY: ${{secrets.SECRET_KEY}}
+      ALGORITHM: ${{secrets.ALGORITHM}}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${{secrets.ACCESS_TOKEN_EXPIRE_MINUTES}}
 
     services:
       postgres:
@@ -34,77 +33,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: pulling git repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       - name: Install python version 3.9
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v2
         with:
           python-version: "3.9"
       - name: update pip
         run: python -m pip install --upgrade pip
       - name: install all dependencies
-        run: pip install -r src/requirements.txt
+        run: pip install -r requirements.txt
       - name: test with pytest
-        run: touch .env
-        echo VARIABLE=${{ secrets.VARIABLE }} >> .env
-        echo DATABASE_HOSTNAME= ${{secrets.DATABASE_HOSTNAME}} >> .env
-        echo DATABASE_PORT= ${{secrets.DATABASE_PORT}} >> .env
-        echo DATABASE_PASSWORD= ${{secrets.DATABASE_PASSWORD}} >> .env
-        echo DATABASE_NAME= ${{secrets.DATABASE_NAME}}_test >> .env
-        echo DATABASE_USERNAME= ${{secrets.DATABASE_USERNAME}} >> .env
-        echo SECRET_KEY= ${{secrets.SECRET_KEY}} >> .env
-        echo ALGORITHM= ${{secrets.ALGORITHM}} >> .env
-        echo ACCESS_TOKEN_EXPIRE_MINUTES= ${{secrets.ACCESS_TOKEN_EXPIRE_MINUTES}} >> .env
-    - name: Test
-      run:
-        pip install pytest
-        pytest -s
-
-# name: Build and Deploy Code
-
-# on: [push, pull_request]
-
-# jobs:
-#   build:
-#     environment:
-#       name: testing
-#     env:
-#       DATABASE_HOSTNAME: ${{secrets.DATABASE_HOSTNAME}}
-#       DATABASE_PORT: ${{secrets.DATABASE_PORT}}
-#       DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
-#       DATABASE_NAME: ${{secrets.DATABASE_NAME}}
-#       DATABASE_USERNAME: ${{secrets.DATABASE_USERNAME}}
-#       SECRET_KEY: ${{secrets.SECRET_KEY}}
-#       ALGORITHM: ${{secrets.ALGORITHM}}
-#       SQL_DATABASE_URL: postgresql://${{secrets.DATABASE_USERNAME}}:${{secrets.DATABASE_PASSWORD}}}@localhost:${{secrets.DATABASE_PORT}}/${{secrets.DATABASE_NAME}}
-#       ACCESS_TOKEN_EXPIRE_MINUTES: ${{secrets.ACCESS_TOKEN_EXPIRE_MINUTES}}
-
-#     services:
-#       postgres:
-#         image: postgres
-#         env:
-#           POSTGRES_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
-#           POSTGRES_DB: ${{secrets.DATABASE_NAME}}_test
-#         ports:
-#           - 5432:5432
-#         options: >-
-#           --health-cmd pg_isready
-#           --health-interval 10s
-#           --health-timeout 5s
-#           --health-retries 5
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: pulling git repo
-#         uses: actions/checkout@v3
-#       - name: Install python version 3.9
-#         uses: actions/setup-python@v2
-#         with:
-#           python-version: "3.9"
-#       - name: update pip
-#         run: python -m pip install --upgrade pip
-#       - name: install all dependencies
-#         run: pip install -r src/requirements.txt
-#       - name: test with pytest
-#         run: |
-#           cd ./src
-#           pip install pytest
-#           pytest
+        run: |
+          pip install pytest
+          pytest
