@@ -12,7 +12,7 @@ jobs:
       DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
       DATABASE_NAME: ${{secrets.DATABASE_NAME}}
       DATABASE_USERNAME: ${{secrets.DATABASE_USERNAME}}
-      DATABASE_FULL_NAME: postgresql:// ${{secrets.DATABASE_USERNAME}}:${{secrets.DATABASE_PASSWORD}}@${{secrets.DATABASE_HOSTNAME}}:5432/${{secrets.DATABASE_NAME}}
+      DATABASE_FULL_NAME: postgresql:// ${{secrets.DATABASE_USERNAME}}:${{secrets.DATABASE_PASSWORD}}@${{secrets.DATABASE_HOSTNAME}}:${{secrets.DATABASE_PORT}}/${{secrets.DATABASE_NAME}}
       SECRET_KEY: ${{secrets.SECRET_KEY}}
       ALGORITHM: ${{secrets.ALGORITHM}}
       ACCESS_TOKEN_EXPIRE_MINUTES: ${{secrets.ACCESS_TOKEN_EXPIRE_MINUTES}}
@@ -22,7 +22,8 @@ jobs:
         image: postgres
         env:
           POSTGRES_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
-          POSTGRES_DB: hello_fastapi_dev_test
+          POSTGRES_DB: ${{secrets.DATABASE_NAME}}_test
+          POSTGRES_USER: ${{secrets.DATABASE_USERNAME}}
         ports:
           - 5432:5432
         options: >-
@@ -47,4 +48,5 @@ jobs:
         run: |
           pip install pytest
           pytest -v
+
 #
