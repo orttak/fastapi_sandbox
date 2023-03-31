@@ -35,18 +35,12 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+    - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Set up Docker Compose
-        run: |
-          sudo apt-get update
-          sudo apt-get -y install curl
-          sudo curl -L "https://github.com/docker/compose/releases/download/v3.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose
-          docker-compose version
-
-      - name: Deploy Docker Compose services
-        run: |
-          docker-compose -f docker-compose-test.yml up -d
-          docker exec -it web pytest -v
+    - name: Set up Docker Buildx
+    - uses: isbang/compose-action@v1.4.1
+        with:
+            compose-file: "./docker-compose-test.yml"
+    - name: Run Tests
+        run: docker exec -it web pytest -v
+        #   docker-compose -f docker-compose-test.yml up -d      
