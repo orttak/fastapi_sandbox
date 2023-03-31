@@ -1,51 +1,51 @@
-# name: Docker Compose Actions Workflow #https://github.com/peter-evans/docker-compose-actions-workflow
-# on: push
+# # name: Docker Compose Actions Workflow #https://github.com/peter-evans/docker-compose-actions-workflow
+# # on: push
+# # jobs:
+# #   docker-compose-build:
+# #     runs-on: ubuntu-latest
+# #     steps:
+# #       - uses: actions/checkout@v3
+# #       - name: Build the stack
+# #         run: docker-compose up -d
+# #       - name: create env file
+# #         run: |
+# #           touch ./src/app/.env
+# #           echo database_hostname="db" >> ./src/app/.env
+# #           echo  database_port=5432  >> ./src/app/.env
+# #           echo  database_password="hello_fastapi"   >> ./src/app/.env
+# #           echo  database_name="hello_fastapi_dev  >> ./src/app/.env
+# #           echo  database_username="hello_fastapi  >> ./src/app/.env
+# #           echo  secret_key = "09d25e094faa6ca2556c818145b7a9563b93f7958f6f0f4caa6cf63b88e8d3e7  >> ./src/app/.env
+# #           echo  algorithm="HS256  >> ./src/app/.env
+# #           echo  database_full_name='postgresql://hello_fastapi:hello_fastapi@db/hello_fastapi_dev  >> ./src/app/.env
+# #           echo  access_token_expire_minutes=30 >> ./src/app/.env
+# #       - name: Test
+# #         run: docker exec -i web  pytest -v
+# name: Docker Compose Action
+
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - main
+
 # jobs:
-#   docker-compose-build:
+#   docker-compose-test:
 #     runs-on: ubuntu-latest
 #     steps:
-#       - uses: actions/checkout@v3
-#       - name: Build the stack
-#         run: docker-compose up -d
-#       - name: create env file
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+
+#       - name: Set up Docker Buildx
+#         uses: isbang/compose-action@v1.4.1
+#         with:
+#           compose-file: "./docker-compose-test.yml"
+#           up-flags: "--build"
+
+#       - name: Build and run containers
 #         run: |
-#           touch ./src/app/.env
-#           echo database_hostname="db" >> ./src/app/.env
-#           echo  database_port=5432  >> ./src/app/.env
-#           echo  database_password="hello_fastapi"   >> ./src/app/.env
-#           echo  database_name="hello_fastapi_dev  >> ./src/app/.env
-#           echo  database_username="hello_fastapi  >> ./src/app/.env
-#           echo  secret_key = "09d25e094faa6ca2556c818145b7a9563b93f7958f6f0f4caa6cf63b88e8d3e7  >> ./src/app/.env
-#           echo  algorithm="HS256  >> ./src/app/.env
-#           echo  database_full_name='postgresql://hello_fastapi:hello_fastapi@db/hello_fastapi_dev  >> ./src/app/.env
-#           echo  access_token_expire_minutes=30 >> ./src/app/.env
-#       - name: Test
-#         run: docker exec -i web  pytest -v
-name: Docker Compose Action
-
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
-jobs:
-  docker-compose-test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Docker Buildx
-        uses: isbang/compose-action@v1.4.1
-        with:
-          compose-file: "./docker-compose-test.yml"
-          up-flags: "--build"
-
-      - name: Build and run containers
-        run: |
-          docker-compose -f docker-compose-test.yml up -d
-          docker-compose exec web pytest -v
-          docker-compose down
+#           docker-compose -f docker-compose-test.yml up -d
+#           docker-compose exec web pytest -v
+#           docker-compose down
